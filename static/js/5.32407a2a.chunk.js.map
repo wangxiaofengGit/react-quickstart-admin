@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/groupOne.js"],"names":["GroupOne"],"mappings":"8FAAA,2BAMeA,UALf,WACI,OACI","file":"static/js/5.32407a2a.chunk.js","sourcesContent":["import React from 'react'\r\nfunction GroupOne(){\r\n    return(\r\n        <div>分组一</div>\r\n    )\r\n}\r\nexport default GroupOne"],"sourceRoot":""}
