@@ -22,7 +22,7 @@ const codeMessage = {
   };
 // create an axios instance
 const service = axios.create({
-    baseURL:'/api',
+    baseURL: process.env==='development'?'/api':'https://jsonplaceholder.typicode.com/',
     timeout: 5000 // request timeout
 })
 
