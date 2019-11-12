@@ -10,7 +10,7 @@ function NormalLoginForm(props)  {
     e.preventDefault()
     props.form.validateFields((err, values) => {
       if (!err) {
-        let roles = values.username ==='admin'?['admin']:['editer']
+        let roles = values.username ==='admin'?['admin','one','two','three']:['editer']
         let nickName = values.username ==='admin'?'管理员':'普通用户'
         let userToken = 'token'
         let headImg = undefined

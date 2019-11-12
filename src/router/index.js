@@ -18,7 +18,7 @@ function RootRouter(){
             <Route path='/one/next' component={Two}/>
             <Route path='/three' component={Three}/>
             <Route path='/four' render={()=>{
-              return (<Authorized auth='editer'>
+              return (<Authorized auth='admin'>
               <Four/>
             </Authorized>)
             }}/>
