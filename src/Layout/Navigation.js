@@ -1,3 +1,10 @@
+/******
+@param key 唯一标记
+@param icon antd小图标
+@param title 菜单标题
+@param children 子菜单
+@param group 分组列表
+ */
 const menusData = [{
     key:'sub-1',
     icon:'appstore',
