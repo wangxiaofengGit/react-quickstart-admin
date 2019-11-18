@@ -1,0 +1,1 @@
+{"version":3,"sources":["pages/five.js"],"names":["Five"],"mappings":"8FAAA,2BAOeA,UALf,WACI,OACI","file":"static/js/3.5a9236f2.chunk.js","sourcesContent":["import React from 'react'\r\n\r\nfunction Five(){\r\n    return(\r\n        <div>您的身份是管理员</div>\r\n    )\r\n}\r\nexport default Five"],"sourceRoot":""}
