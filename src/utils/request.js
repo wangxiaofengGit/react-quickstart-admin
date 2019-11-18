@@ -25,12 +25,11 @@ const service = axios.create({
     baseURL: process.env==='development'?'/api':'https://jsonplaceholder.typicode.com/',
     timeout: 5000 // request timeout
 })
-
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-
+    store.dispatch({ type:'LOADING_START' })
     if (sessionStorage.getItem('userInfo')) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -59,6 +58,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
+    store.dispatch({ type:'LOADING_END' })
     const { status } = response
 
     // if the custom code is not 20000, it is judged as an error.

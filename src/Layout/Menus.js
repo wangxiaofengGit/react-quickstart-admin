@@ -79,6 +79,6 @@ function Menus(props) {
         checkSubRole(menusData)
       }
     </Menu>
-    );
+    )
   }
 export default Menus

@@ -4,21 +4,21 @@ import { connect } from 'react-redux'
 import { loginAction } from '../../actions/login'
 import { Redirect } from 'react-router-dom'
 function NormalLoginForm(props)  {
-  const { dispatch, loginTag } = props
+  const { dispatch, loading, loginTag } = props
   const { getFieldDecorator } = props.form;
   const handleSubmit = e => {
     e.preventDefault()
-    props.form.validateFields((err, values) => {
+    props.form.validateFields( (err, values) => {
       if (!err) {
         let roles = values.username ==='admin'?['admin','one','two','three']:['editer']
         let nickName = values.username ==='admin'?'管理员':'普通用户'
         let userToken = 'token'
         let headImg = undefined
-        dispatch(loginAction({ roles, userToken, headImg, nickName }))        
+        dispatch(loginAction({ roles, userToken, headImg, nickName }))      
       }
     })
   }
-  const hasLogin =loginTag||sessionStorage.getItem('userInfo')
+  const hasLogin = loginTag||sessionStorage.getItem('userInfo')
     return (
       hasLogin?
      < Redirect to='/one'/>:
@@ -30,7 +30,7 @@ function NormalLoginForm(props)  {
             })(
               <Input
                 prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                placeholder="管理员输入admin,普通用户随便输"
+                placeholder="管理员输入admin 普通用户随便输"
               />,
             )}
           </Form.Item>
@@ -41,12 +41,12 @@ function NormalLoginForm(props)  {
               <Input
                 prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                 type="password"
-                placeholder="管理员输入admin,普通用户随便输"
+                placeholder="管理员输入admin 普通用户随便输"
               />,
             )}
           </Form.Item>
           <Form.Item>
-            <Button type="primary" htmlType="submit" >
+            <Button loading={loading} type="primary" htmlType="submit" >
               登录
             </Button>
           </Form.Item>
@@ -54,9 +54,10 @@ function NormalLoginForm(props)  {
       </div>
     )
 }
-const mapStateToProps = ({ loginReducer }) =>{
+const mapStateToProps = ({ loginReducer, loadingReducer }) =>{
   return {
-    loginTag:loginReducer.loginTag
+    loginTag:loginReducer.loginTag,
+    loading:loadingReducer.loading
   }
 }
 const mapDispatchToProps = dispatch =>({

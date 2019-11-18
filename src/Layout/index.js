@@ -22,19 +22,20 @@ function LayoutContainer(props){
     const resetBread = (keyPath) =>{
         keyPath.reverse()
         let tempArr = []
+        let pathIndex = 0
         function rankBread(child){
           let groupKey = undefined
           let result = child.find(item =>{
             if(item.group){
                return item.group.find((gruopItem) => {
-                 if(gruopItem.key === keyPath[0]){
+                 if(gruopItem.key === keyPath[pathIndex]){
                     groupKey = gruopItem.key
                     return true
                  }
-                return gruopItem.key === keyPath[0]
+                return gruopItem.key === keyPath[pathIndex]
               })    
             }else{
-                return item.key === keyPath[0]
+                return item.key === keyPath[pathIndex]
             }
           })
           if(groupKey){
@@ -42,7 +43,7 @@ function LayoutContainer(props){
               return gruopItem.key === groupKey
             })
           }
-          keyPath.splice(0,1)
+          pathIndex++
           tempArr.push(result)
           if(result.children){
             rankBread(result.children)
