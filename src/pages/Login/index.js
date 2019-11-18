@@ -1,4 +1,5 @@
 import React from 'react'
+import Cookies from 'js-cookie'
 import { Button ,Form, Icon,Input } from 'antd';
 import { connect } from 'react-redux'
 import { loginAction } from '../../actions/login'
@@ -18,7 +19,7 @@ function NormalLoginForm(props)  {
       }
     })
   }
-  const hasLogin = loginTag||sessionStorage.getItem('userInfo')
+  const hasLogin = loginTag||Cookies.get('userInfo')
     return (
       hasLogin?
      < Redirect to='/one'/>:

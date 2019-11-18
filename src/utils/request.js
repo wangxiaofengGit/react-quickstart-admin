@@ -3,6 +3,7 @@ import {  message } from 'antd'
 import store from '../store'
 import { signOutAction } from '../actions/login'
 import { getToken } from './auth'
+import Cookies from 'js-cookie'
 const codeMessage = {
     200: '服务器成功返回请求的数据。',
     201: '新建或修改数据成功。',
@@ -30,7 +31,7 @@ service.interceptors.request.use(
   config => {
     // do something before request is sent
     store.dispatch({ type:'LOADING_START' })
-    if (sessionStorage.getItem('userInfo')) {
+    if (Cookies.get('userInfo')) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
       // please modify it according to the actual situation

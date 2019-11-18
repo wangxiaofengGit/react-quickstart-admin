@@ -1,12 +1,13 @@
+import Cookies from 'js-cookie'
 export const getToken = () =>{
-    return JSON.parse(sessionStorage.getItem('userInfo')).userToken
+    return JSON.parse(Cookies.get('userInfo')).userToken
 }
 export const getHeadImg = () =>{
-    return JSON.parse(sessionStorage.getItem('userInfo')).headImg
+    return JSON.parse(Cookies.get('userInfo')).headImg
 }
 export const getRoles = () =>{
-    return JSON.parse(sessionStorage.getItem('userInfo')).roles
+    return JSON.parse(Cookies.get('userInfo')).roles
 }
 export const getName = () =>{
-    return JSON.parse(sessionStorage.getItem('userInfo')).nickName
+    return JSON.parse(Cookies.get('userInfo')).nickName
 }

@@ -1,4 +1,5 @@
 import React,{ useState } from 'react'
+import Cookies from 'js-cookie'
 import { Layout,  Breadcrumb} from 'antd'
 import menusData from './Navigation'
 import Menus from './Menus'
@@ -10,7 +11,7 @@ import { getRoles } from '../utils/auth'
 const { Header, Content, Sider } = Layout;
 function LayoutContainer(props){
     const { loginTag, history } = props
-    const hasLogin = loginTag||sessionStorage.getItem('userInfo')
+    const hasLogin = loginTag||Cookies.get('userInfo')
     let initBread = [menusData[0],menusData[0].children[0]]
     const [bread, setBread] = useState(initBread)
     const  handleClick = e => {
