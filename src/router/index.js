@@ -33,7 +33,6 @@ function RootRouter(){
             <Route path='/403' component={Result403}/>
             <Route path='/*' component={Result404}/>
         </Switch>
-        {window.location.hash === '#/'&&<Redirect to='/one'/>}
       </Fragment>
     )
 }

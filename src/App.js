@@ -1,5 +1,5 @@
 import React,{ Fragment } from 'react';
-import { Route,Switch } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import Layout from './Layout/index'
 import NormalLoginForm from './pages/Login/index'
 import './App.less'
