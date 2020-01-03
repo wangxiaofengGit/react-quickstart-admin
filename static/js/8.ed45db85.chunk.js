@@ -1,0 +1,1 @@
+(this.webpackJsonptesx=this.webpackJsonptesx||[]).push([[8],{355:function(e,t,n){"use strict";n.r(t);n(67);var a=n(27),s=n(0),c=n.n(s),r=n(25);t.default=function(){return c.a.createElement(r.b,{to:"/one/next"},c.a.createElement(a.a,null,"\u5230\u5b50\u9875\u9762"))}}}]);
