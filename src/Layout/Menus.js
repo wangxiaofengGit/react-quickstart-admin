@@ -66,13 +66,20 @@ function Menus(props) {
       :null
       :checkSubRender(child)
     })
-  } 
+  }
+  const defaultSelectedKeys = sessionStorage.getItem('selectMenusKey')?
+      sessionStorage.getItem('selectMenusKey').split(',')[1]
+    :menusData[0].children[0].key
+  const defaultOpenKeys = sessionStorage.getItem('selectMenusKey')?
+      sessionStorage.getItem('selectMenusKey').split(',')[0]
+    :menusData[0].key 
+    
     return (
       <Menu
       onClick={handleClick}
       style={{ width: 256}}
-      defaultSelectedKeys={[menusData[0].children[0].key]}
-      defaultOpenKeys={[menusData[0].key]}
+      defaultSelectedKeys={[defaultSelectedKeys]}
+      defaultOpenKeys={[defaultOpenKeys]}
       mode="inline"
     >
       {

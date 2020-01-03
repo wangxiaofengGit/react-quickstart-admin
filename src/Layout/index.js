@@ -19,6 +19,7 @@ function LayoutContainer(props){
         let { keyPath } = e
         history.push(path)
         resetBread(keyPath)
+        sessionStorage.setItem('selectMenusKey',keyPath)
     }
     const resetBread = (keyPath) =>{
         keyPath.reverse()
