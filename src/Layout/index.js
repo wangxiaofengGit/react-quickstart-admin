@@ -1,4 +1,4 @@
-import React,{ useState } from 'react'
+import React,{ useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import { Layout,  Breadcrumb} from 'antd'
 import menusData from './Navigation'
@@ -14,6 +14,11 @@ function LayoutContainer(props){
     const hasLogin = loginTag||Cookies.get('userInfo')
     let initBread = [menusData[0],menusData[0].children[0]]
     const [bread, setBread] = useState(initBread)
+    useEffect(() =>{
+      if(sessionStorage.getItem('selectMenusKey')){
+        resetBread(sessionStorage.getItem('selectMenusKey').split(',').reverse())
+      }
+    },[])
     const  handleClick = e => {
         const { path }  = e.item.props
         let { keyPath } = e
@@ -59,8 +64,8 @@ function LayoutContainer(props){
       <Header className="header" style={{padding:0,display:'flex'}}>
         <Topbar/>
       </Header>
-      <Layout>
-        <Sider width={256} style={{background: '#fff',overflowY:'auto'}}>
+      <Layout> 
+        <Sider width={256} style={{background: '#fff',overflowY:'auto', overflowX:'hidden'}} >
         <Menus
           roles={getRoles()}
           menusData={menusData}

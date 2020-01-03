@@ -14,5 +14,6 @@ export   const loginAction =   data => dispatch => {
 }
 export const signOutAction = () => dispatch =>{
     Cookies.remove('userInfo')
+    sessionStorage.removeItem('selectMenusKey')
     dispatch({ type:SIGN_OUT })
 }
