@@ -1,6 +1,7 @@
 import axios from 'axios'
 import {  message } from 'antd'
 import store from '../store'
+import  { LOADING_START, LOADING_END } from '../actions/ActionTypes/types'
 import { signOutAction } from '../actions/login'
 import { getToken } from './auth'
 import Cookies from 'js-cookie'
@@ -24,13 +25,13 @@ const codeMessage = {
 // create an axios instance
 const service = axios.create({
     baseURL: process.env==='development'?'/api':'https://jsonplaceholder.typicode.com/',
-    timeout: 5000 // request timeout
+    timeout: 15000 // request timeout
 })
 // request interceptor
 service.interceptors.request.use(
   config => {
     // do something before request is sent
-    store.dispatch({ type:'LOADING_START' })
+    store.dispatch({ type: LOADING_START })
     if (Cookies.get('userInfo')) {
       // let each request carry token
       // ['X-Token'] is a custom headers key
@@ -40,8 +41,8 @@ service.interceptors.request.use(
     return config
   },
   error => {
-    // do something with request error
-    console.log(error) // for debug
+    store.dispatch({ type:LOADING_END })
+    message.error(error.message)
     return Promise.reject(error)
   }
 )
@@ -59,7 +60,7 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    store.dispatch({ type:'LOADING_END' })
+    store.dispatch({ type:LOADING_END })
     const { status } = response
 
     // if the custom code is not 20000, it is judged as an error.
@@ -77,7 +78,7 @@ service.interceptors.response.use(
     
   },
   error => {
-    console.log('err' + error) // for debug
+    store.dispatch({ type:LOADING_END })
     message.error(error.message)
     return Promise.reject(error)
   }

@@ -1,2 +1,2 @@
-export const LOGIN = 'LOGIN'
-export const SIGN_OUT = 'SIGN_OUT'
+export const LOADING_START = 'LOADING_START'
+export const LOADING_END = 'LOADING_END'

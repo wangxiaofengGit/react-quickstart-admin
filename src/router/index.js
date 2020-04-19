@@ -1,5 +1,5 @@
 import React, { Fragment, lazy } from 'react'
-import { Route ,Switch,Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import { Result403, Result404} from '../components/Result'
 import Authorized from '../components/Authorized'
 const One = lazy(()=>import('../pages/one'))

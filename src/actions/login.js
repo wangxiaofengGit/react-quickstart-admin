@@ -1,19 +1,15 @@
 import request from '../utils/request'
-import { LOGIN, SIGN_OUT} from './ActionTypes/types'
 import Cookies from 'js-cookie'
-export   const loginAction =   data => dispatch => {
-    request({
+export   const loginAction = data => async dispatch => {
+    await request({
         url:'/todos',
         method:'post',
         data
     }).then(res =>{
         Cookies.set('userInfo',res)
-        dispatch({ type:LOGIN })
     })
-    
 }
 export const signOutAction = () => dispatch =>{
     Cookies.remove('userInfo')
-    sessionStorage.removeItem('selectMenusKey')
-    dispatch({ type:SIGN_OUT })
+    Cookies.remove('selectMenusKey')
 }

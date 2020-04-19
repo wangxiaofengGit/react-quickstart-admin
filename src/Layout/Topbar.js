@@ -2,10 +2,11 @@ import React,{ Fragment } from 'react'
 import { connect } from 'react-redux'
 import { Avatar, Dropdown, Menu } from 'antd'
 import { getHeadImg ,getName } from '../utils/auth'
-import { withRouter } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { signOutAction } from '../actions/login'
 function Topbar(props){
-    const { history, dispatch } = props
+    const history = useHistory();
+    const { dispatch } = props
     const signOut = () =>{
         dispatch(signOutAction())
         history.push('/login')
@@ -36,4 +37,4 @@ function Topbar(props){
 const mapDispatchToProps = dispatch =>({
     dispatch
 })
-export default connect(null,mapDispatchToProps)(withRouter(Topbar))
+export default connect(null,mapDispatchToProps)(Topbar)

@@ -1,22 +1,22 @@
 import React,{ useState, useEffect } from 'react'
 import Cookies from 'js-cookie'
-import { Layout,  Breadcrumb} from 'antd'
+import { Layout,  Breadcrumb } from 'antd'
 import menusData from './Navigation'
 import Menus from './Menus'
 import PageContent from './Content'
 import Topbar from './Topbar'
-import { connect } from 'react-redux'
-import { withRouter, Redirect } from 'react-router-dom'
+import { useHistory , Redirect } from 'react-router-dom'
 import { getRoles } from '../utils/auth'
 const { Header, Content, Sider } = Layout;
-function LayoutContainer(props){
-    const { loginTag, history } = props
-    const hasLogin = loginTag||Cookies.get('userInfo')
+function LayoutContainer(){
+    const history = useHistory();
+    const hasLogin = Cookies.get('userInfo')
     let initBread = [menusData[0],menusData[0].children[0]]
     const [bread, setBread] = useState(initBread)
     useEffect(() =>{
-      if(sessionStorage.getItem('selectMenusKey')){
-        resetBread(sessionStorage.getItem('selectMenusKey').split(',').reverse())
+      if(Cookies.get('selectMenusKey')){
+        console.log(Cookies.get('selectMenusKey'))
+        resetBread(Cookies.get('selectMenusKey').split(','))
       }
     },[])
     const  handleClick = e => {
@@ -24,7 +24,7 @@ function LayoutContainer(props){
         let { keyPath } = e
         history.push(path)
         resetBread(keyPath)
-        sessionStorage.setItem('selectMenusKey',keyPath)
+        Cookies.set('selectMenusKey', keyPath.reverse().join(','))
     }
     const resetBread = (keyPath) =>{
         keyPath.reverse()
@@ -60,7 +60,7 @@ function LayoutContainer(props){
         setBread(tempArr)    
       }
     return(
-      hasLogin?<Layout style={{width:'100vw',height:'100vh'}}>
+      hasLogin?<Layout style={{width:'100vw',height:'100vh',overflowY:'auto'}}>
       <Header className="header" style={{padding:0,display:'flex'}}>
         <Topbar/>
       </Header>
@@ -84,9 +84,7 @@ function LayoutContainer(props){
             style={{
               background: '#fff',
               padding: 24,
-              margin: 0,
-              minHeight: 280,
-              overflowY:'auto'
+              margin: 0
             }}
           >
            <PageContent/>
@@ -96,9 +94,5 @@ function LayoutContainer(props){
     </Layout>:<Redirect to='/login'/>   
     )
 }
-const mapStateToProps = ({ loginReducer}) =>{
-  return {
-    loginTag:loginReducer.loginTag
-  }
-}
-export default connect(mapStateToProps,null)(withRouter(LayoutContainer))
+
+export default LayoutContainer

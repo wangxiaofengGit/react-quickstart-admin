@@ -1,10 +1,15 @@
 import React from 'react'
-import { Menu ,Icon  } from 'antd'
+import { Menu } from 'antd'
+import { AppstoreOutlined } from '@ant-design/icons';
+import Cookies from 'js-cookie'
+const obj = {
+  appstore:<AppstoreOutlined />
+}
 const { SubMenu } = Menu;
 function Menus(props) {
-  const { roles, menusData,handleClick } = props
+  const { roles, menusData, handleClick } = props
   const menuItemRender = (nextChild) =>{
-    return <Menu.Item path={nextChild.path} key={nextChild.key}>{nextChild.icon&&<Icon type={nextChild.icon}/>}{nextChild.title}</Menu.Item>
+    return <Menu.Item path={nextChild.path} key={nextChild.key}>{nextChild.icon&&obj[nextChild.icon]}{nextChild.title}</Menu.Item>
   }  
   const checkGroup = (child) =>{
     return child.group?<Menu.ItemGroup key={child.key} title={child.title}>
@@ -22,7 +27,7 @@ function Menus(props) {
         key={nextChild.key}
         title={
           <span>
-            {nextChild.icon&&<Icon type={nextChild.icon}/>}
+            {nextChild.icon&&obj[nextChild.icon]} 
             <span>{nextChild.title}</span>
           </span>
         }
@@ -44,7 +49,7 @@ function Menus(props) {
         key={child.key}
         title={
           <span>
-            {child.icon&&<Icon type={child.icon}/>}
+            {child.icon&&obj[child.icon]}
             <span>{child.title}</span>
           </span>
         }
@@ -67,11 +72,11 @@ function Menus(props) {
       :checkSubRender(child)
     })
   }
-  const defaultSelectedKeys = sessionStorage.getItem('selectMenusKey')?
-      sessionStorage.getItem('selectMenusKey').split(',')[1]
+  const defaultSelectedKeys = Cookies.get('selectMenusKey')?
+      Cookies.get('selectMenusKey').split(',')[0]
     :menusData[0].children[0].key
-  const defaultOpenKeys = sessionStorage.getItem('selectMenusKey')?
-      sessionStorage.getItem('selectMenusKey').split(',')[0]
+  const defaultOpenKeys = Cookies.get('selectMenusKey')?
+        Cookies.get('selectMenusKey').split(',')[1]
     :menusData[0].key 
     
     return (
