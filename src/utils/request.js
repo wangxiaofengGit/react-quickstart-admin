@@ -23,7 +23,7 @@ const codeMessage = {
   };
 
 const service = axios.create({
-    baseURL: process.env==='development'?'/api':'https://jsonplaceholder.typicode.com/',
+    baseURL: process.env.NODE_ENV==='development'?'/api':'https://jsonplaceholder.typicode.com/',
     timeout: 15000
 })
 
