@@ -3,19 +3,30 @@ import Cookies from 'js-cookie'
 import { Button ,Form, Input } from 'antd';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux'
-import { loginAction } from '../../actions/login'
 import { Redirect, useHistory } from 'react-router-dom'
+
+import request from '../../utils/request'
+
 function NormalLoginForm(props)  {
   const history = useHistory()
-  const { dispatch, loading } = props
+  const { state } = props
+  const { loading } = state
+
   const handleSubmit = async values => {
       let roles = values.username ==='admin'?['admin','one','two','three']:['editer']
       let nickName = values.username ==='admin'?'管理员':'普通用户'
       let userToken = 'token'
       let headImg = undefined
-      await dispatch(loginAction({ roles, userToken, headImg, nickName }))
-      history.push('/one')  
+      await request({
+          url:'/todos',
+          method:'post',
+          data:{ roles, nickName, userToken, headImg }
+      }).then(res =>{ 
+          Cookies.set('userInfo',res)
+      })
+      history.push('/one') 
   }
+  
   const hasLogin = Cookies.get('userInfo')
     return (
       hasLogin?
@@ -50,12 +61,9 @@ function NormalLoginForm(props)  {
       </div>
     )
 }
-const mapStateToProps = ({ loadingReducer }) =>{
-  return {
-    loading:loadingReducer.loading
-  }
-}
-const mapDispatchToProps = dispatch =>({
-  dispatch
+
+const mapState = ({loading}) => ({
+  state:loading,
 })
-export default connect(mapStateToProps,mapDispatchToProps)(NormalLoginForm);
+
+export default connect(mapState, null)(NormalLoginForm)

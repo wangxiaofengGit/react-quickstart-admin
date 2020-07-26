@@ -1,6 +1,8 @@
 import React from 'react'
-import { getRoles } from '../utils/auth'
 import { Redirect } from 'react-router-dom'
+
+import { getRoles } from '../utils/auth'
+
 function Authorized(props){
     const { children, auth } = props
     let roles = getRoles()
@@ -10,4 +12,5 @@ function Authorized(props){
         :<Redirect to='/403'/>
     )
 }
+
 export default Authorized
