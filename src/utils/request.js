@@ -23,7 +23,7 @@ const codeMessage = {
   };
 
 const service = axios.create({
-    baseURL: process.env.NODE_ENV==='development'?'/api':'https://jsonplaceholder.typicode.com/',
+    baseURL: process.env.NODE_ENV==='development'?'/api':'/',
     timeout: 15000
 })
 
@@ -47,7 +47,7 @@ service.interceptors.response.use(
     store.dispatch.loading.setLoading(false)
     const { status } = response
 
-    if (status !== 201) {
+    if (status !== 200) {
         message.error(codeMessage[status])
       if (status === 50008 || status === 50012 || status === 50014) {
           Cookies.remove('userInfo')

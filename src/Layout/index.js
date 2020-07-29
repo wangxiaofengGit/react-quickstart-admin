@@ -96,7 +96,6 @@ function LayoutContainer(){
               background: '#fff',
               padding: 24,
               margin: 0,
-              minHeight: 'calc(100vh - 150px)'
             }}
           >
            <PageContent/>

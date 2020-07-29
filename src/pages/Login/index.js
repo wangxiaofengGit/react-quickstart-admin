@@ -9,28 +9,26 @@ import request from '../../utils/request'
 
 function NormalLoginForm(props)  {
   const history = useHistory()
-  const { state } = props
-  const { loading } = state
+  const { store } = props
+  const { loading } = store
 
   const handleSubmit = async values => {
-      let roles = values.username ==='admin'?['admin','one','two','three']:['editer']
-      let nickName = values.username ==='admin'?'管理员':'普通用户'
-      let userToken = 'token'
-      let headImg = undefined
-      await request({
-          url:'/todos',
-          method:'post',
-          data:{ roles, nickName, userToken, headImg }
-      }).then(res =>{ 
-          Cookies.set('userInfo',res)
-      })
-      history.push('/one') 
+    await request({
+      url:'/admin/login',
+      method:'post',
+      data:values
+    }).then(res =>{ 
+      console.log(res)
+      Cookies.set('userInfo',{ roles:['admin']})
+      history.push('/manage/merchants') 
+    })
   }
   
   const hasLogin = Cookies.get('userInfo')
+
     return (
       hasLogin?
-     < Redirect to='/one'/>:
+     < Redirect to='/manage/merchants'/>:
       <div style={{boxSizing:'border-box',paddingTop:'15vh',background:'rgb(48, 65, 86)',width:'100vw',height:'100vh'}}>
         <Form onFinish={handleSubmit} style={{width:350,margin:'auto',padding:45,borderRadius:5, textAlign:'center', background:'#eee'}}>
           <Form.Item
@@ -39,7 +37,7 @@ function NormalLoginForm(props)  {
           >
             <Input
               prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="管理员输入admin 普通用户随便输"
+              placeholder="请输入登陆账号"
             />
           </Form.Item>
           <Form.Item
@@ -49,7 +47,7 @@ function NormalLoginForm(props)  {
             <Input
               prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
               type="password"
-              placeholder="管理员输入admin 普通用户随便输"
+              placeholder="请输入密码"
             />
           </Form.Item>
           <Form.Item>
@@ -63,7 +61,7 @@ function NormalLoginForm(props)  {
 }
 
 const mapState = ({loading}) => ({
-  state:loading,
+  store: loading
 })
 
 export default connect(mapState, null)(NormalLoginForm)
